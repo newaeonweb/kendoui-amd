@@ -1,0 +1,164 @@
+<div class="row-fluid">
+    <h3>Tabela Simples com Handlebars</h3>
+		<div id="content-placeholder"></div>
+    <hr/>
+    <!--Handlebars templates-->
+		<script id="some-template" type="text/x-handlebars-template">
+		  <table class="table table-striped">
+			<thead>
+			  <th>Username</th>
+			  <th>Real Name</th>
+			  <th>Email</th>
+			</thead>
+			<tbody>
+			  {{#users}}
+				<tr>
+				  <td>{{username}}</td>
+				  <td>{{firstName}} {{lastName}}</td>
+				  <td>{{email}}</td>
+				</tr>
+			  {{/users}}
+			</tbody>
+		  </table>
+		</script>
+
+    <h3>Kendo grid local</h3>
+		<div id="gridLocal"></div>
+    <br/>
+    <br/>
+
+    <h3>Kendo Grid remoto</h3>
+    <div id="gridRestful"></div>
+    <br/>
+    <br/>
+
+    <h3>Kendo Grid viewModel</h3>
+    <div id="viewModelRemote">
+
+      <div id="viewModelRemoteGrid"
+           data-role="grid"
+           data-bind="source: listUsers"
+           data-columns='["username", "firstName", "lastName", "email"]'
+           data-editable="true">
+      </div>
+
+    </div>
+
+</div>
+<script>
+	var domTpl   = $("#some-template").html();
+	  var template = Handlebars.compile(domTpl);
+
+		var data = { users: [
+		  {username: "alan", firstName: "Alan", lastName: "Johnson", email: "alan@test.com" },
+		  {username: "allison", firstName: "Allison", lastName: "House", email: "allison@test.com" },
+		  {username: "ryan", firstName: "Ryan", lastName: "Carson", email: "ryan@test.com" }
+		]};
+
+	$("#content-placeholder").html(template(data));
+
+	$('#gridLocal').kendoGrid({
+		dataSource: {
+			data: data.users,
+			schema: {
+				model: {
+					fields: {
+						username: { type: "string"},
+						firstName: { type: "string"},
+						lastName: { type: "string"},
+						email: { type: "string"}
+					}
+				}
+			}
+		},
+		filterable: true,
+		toolbar: ["create"],
+		columns: [
+      { field:"username", title: "Nome de Usuário" },
+      { field: "firstName", title:"Primeiro Nome" },
+      { field: "lastName", title: "Último Nome" },
+			{ field: "email", title: "E-mail" },
+      { command: ["edit", "destroy"], title: "&nbsp;", width: "200px" }],
+		 editable: "popup"
+	});
+
+</script>
+
+<script>
+  var Users = kendo.data.Model.define({
+    id: "_id"
+  });
+
+  var dataSource = new kendo.data.DataSource({
+    schema: {
+      model: Users
+    },
+    batch: true,
+    transport: {
+      create: {
+        url: "http://localhost:3000/api/users",
+        dataType: "json",
+        type: "POST"
+      },
+      read:  {
+        url: "http://localhost:3000/api/users",
+        dataType: "json",
+        type: "GET"
+      },
+      update: {
+        url: function (options) {
+          return 'http://localhost:3000/api/users/' + options.models[0]._id
+        },
+        //contentType: "form-data",
+        dataType: "json",
+        type: "PUT"
+      },
+      destroy: {
+        url: function (options) {
+          return 'http://localhost:3000/api/users/' + options.models[0]._id
+        },
+        dataType: "json",
+        type: "DELETE"
+      },
+
+      parameterMap: function(options, operation) {
+        if (operation !== "read" && options.models) {
+          //ids = kendo.stringify(options.models[0]._id);
+          return {models: kendo.stringify(options.models)};
+        }
+//        if (operation === "update" && operation === "create"){
+//            return JSON.stringify(options.models[0]);
+//
+//        }
+      }
+    },
+    error: function (e) {
+      // handle data operation error
+      alert("Status: " + e.status + "; Error message: " + e.errorThrown);
+    },
+    requestStart: function() {
+      kendo.ui.progress($("#gridRestful"), true);
+    },
+    requestEnd: function() {
+      kendo.ui.progress($("#gridRestful"), false);
+    }
+
+  });
+  dataSource.read();
+
+  $("#gridRestful").kendoGrid({
+    dataSource: dataSource,
+    toolbar: [ "create"],
+    columns: [
+      { field:"username", title: "Nome de Usuário" },
+      { field: "firstName", title:"Primeiro Nome" },
+      { field: "lastName", title: "Último Nome" },
+      { field: "email", title: "E-mail" },
+      { command: ["edit", "destroy"], title: "&nbsp;", width: "200px" }],
+    editable: "inline"
+
+  });
+
+
+</script>
+
