@@ -1,125 +1,133 @@
-// Generated on 2014-10-02 using generator-kendo-ui 0.0.3
 'use strict';
 
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// use this if you want to recursively match all subfolders:
-// 'test/spec/**/*.js'
-
 module.exports = function (grunt) {
+
+  // Unified Watch Object
+  var watchFiles = {
+    serverViews: ['server/views/**/*.*'],
+    serverJS: ['server/**/*.js'],
+    clientViews: ['app/scripts/views/**/*.html'],
+    clientJS: ['app/scripts/views/**/*.js', 'app/js/**/*.js'],
+    clientCSS: ['app/styles/**/*.css'],
+    mochaTests: ['app/tests/**/*.js']
+  };
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
   // Define the configuration for all the tasks
   grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
 
     // Project settings
-    yeoman: {
-      // Configurable paths
-      app: 'app'
-    },
-
     // Watches files for changes and runs tasks based on the changed files
     watch: {
-      js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+      serverViews: {
+        files: watchFiles.serverViews,
+        options: {
+          livereload: true
+        }
+      },
+      serverJS: {
+        files: watchFiles.serverJS,
         tasks: ['jshint'],
         options: {
           livereload: true
         }
       },
-      livereload: {
+      clientViews: {
+        files: watchFiles.clientViews,
         options: {
-          livereload: '<%= connect.options.livereload %>'
-        },
-        files: [
-          '<%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
-          '<%= yeoman.app %>/images/{,*/}*'
-        ]
-      }
-    },
-
-    // The actual grunt server settings
-    connect: {
-      options: {
-        port: 9000,
-        livereload: 35729,
-        // Change this to '0.0.0.0' to access the server from outside
-        hostname: 'localhost'
+          livereload: true
+        }
       },
-      livereload: {
+      clientJS: {
+        files: watchFiles.clientJS,
+        tasks: ['jshint'],
         options: {
-          open: true,
-          base: [
-            '.tmp',
-            '<%= yeoman.app %>'
-          ]
+          livereload: true
+        }
+      },
+      clientCSS: {
+        files: watchFiles.clientCSS,
+        tasks: ['csslint'],
+        options: {
+          livereload: true
         }
       }
     },
 
+
+
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
-      options: {
-        jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish')
-      },
-      all: [
-        'Gruntfile.js',
-        '<%= yeoman.app %>/scripts/{,*/}*.js',
-        '!<%= yeoman.app %>/scripts/vendor/*',
-        'test/spec/{,*/}*.js'
-      ]
+      all: {
+        src: watchFiles.clientJS.concat(watchFiles.serverJS),
+        options: {
+          jshintrc: '.jshintrc',
+          reporter: require('jshint-stylish')
+        }
+      }
     },
-
     kendo_lint: {
       options: {
         force: true
       },
-      files: [ '/scripts/{,*/}*.js', '/{,*/}*.html' ]
+      files: watchFiles.clientJS.concat(watchFiles.clientViews)
     },
-
-    requirejs: {
-      compile: {
+    csslint: {
+      options: {
+        csslintrc: '.csslintrc'
+      },
+      all: {
+        src: watchFiles.clientCSS
+      }
+    },
+    nodemon: {
+      dev: {
+        script: 'server.js',
         options: {
-          baseUrl: './app/scripts',
-          paths: {
-            text: '../bower_components/requirejs-text/text'
-          },
-          name: 'main', // assumes a production build using almond
-          out: 'app/scripts/main-built.js'
+          nodeArgs: ['--debug'],
+          ext: 'js,html',
+          watch: watchFiles.serverViews.concat(watchFiles.serverJS)
         }
+      }
+    },
+    'node-inspector': {
+      custom: {
+        options: {
+          'web-port': 1337,
+          'web-host': 'localhost',
+          'debug-port': 5858,
+          'save-live-edit': true,
+          'no-preload': true,
+          'stack-trace-limit': 50,
+          'hidden': []
+        }
+      }
+    },
+    concurrent: {
+      default: ['nodemon', 'watch'],
+      debug: ['nodemon', 'watch', 'node-inspector'],
+      options: {
+        logConcurrentOutput: true
       }
     }
 
   });
 
-  grunt.registerTask('serve', function (target) {
-    if (target === 'dist') {
-      return grunt.task.run(['build', 'connect:dist:keepalive']);
-    }
+  // Making grunt default to force in order not to break the project.
+  grunt.option('force', true);
 
-    grunt.task.run([
-      'connect:livereload',
-      'watch'
-    ]);
-  });
 
-  grunt.registerTask('server', function (target) {
-    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-    grunt.task.run([target ? ('serve:' + target) : 'serve']);
-  });
+  // Default task(s).
+  grunt.registerTask('default', ['lint', 'concurrent:default']);
 
-  grunt.registerTask('build', [
-    'requirejs'
-  ]);
+  // Build task(s).
+  grunt.registerTask('build', ['lint']);
 
-  grunt.registerTask('default', [
-    'newer:kendo_lint',
-    'build'
-  ]);
+  // Lint task(s).
+  grunt.registerTask('lint', ['jshint', 'csslint', 'kendo_lint']);
+
 
 };

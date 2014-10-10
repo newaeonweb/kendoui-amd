@@ -5,11 +5,12 @@ var User     = require('../models/user');
 
 /* GET all users. */
 router.get('/', function(req, res) {
+  'use strict';
   //res.json({ message: 'Hello SPA, the API is working!' });
   User.find(function(err, users) {
-    if (err)
+    if (err) {
       res.send(err);
-
+    }
     res.json(users);
   });
 
@@ -17,10 +18,12 @@ router.get('/', function(req, res) {
 
 /* GET specific users by id. */
 router.get('/:user_id', function(req, res) {
+  'use strict';
 
   User.findById(req.params.user_id, function(err, user) {
-    if (err)
+    if (err) {
       res.send(err);
+    }
     res.json(user);
   });
 
@@ -28,6 +31,8 @@ router.get('/:user_id', function(req, res) {
 
 /* PUT users */
 router.post('/', function(req, res) {
+  'use strict';
+
   // create a new instance of the User model
   var user = new User();
 
@@ -39,8 +44,9 @@ router.post('/', function(req, res) {
 
   // save the data received
   user.save(function(err) {
-    if (err)
+    if (err) {
       res.send(err);
+    }
     console.log(user);
     // give some success message
     res.json({ message: 'user successfully created!' });
@@ -50,25 +56,26 @@ router.post('/', function(req, res) {
 
 /* UPDATE specific users by id. */
 router.put('/:user_id', function(req, res) {
+  'use strict';
 
   User.findById(req.params.user_id, function(err, user) {
 
-    if (err)
+    if (err) {
       res.send(err);
-
+    }
     // set the users properties (comes from the request)
     user.username = req.body.username;
     user.firstName = req.body.firstName;
     user.lastName = req.body.lastName;
     user.email = req.body.email;
 
-
-      // Yes, it's a valid ObjectId, proceed with `findById` call.
+    // Yes, it's a valid ObjectId, proceed with `findById` call.
 
       // save the data received
       user.save(function (err) {
-        if (err)
+        if (err) {
           res.send(err);
+        }
         console.log(user);
         // give some success message
         res.json({ message: 'user successfully updated!' });
@@ -80,12 +87,15 @@ router.put('/:user_id', function(req, res) {
 
 /* DELETE specific users by id. */
 router.delete('/:user_id', function(req, res) {
+  'use strict';
 
   User.remove({
     _id: req.params.user_id
   }, function(err, user) {
-    if (err)
+    if (err) {
       res.send(err);
+      res.send(user);
+    }
 
     // give some success message
     res.json({ message: 'user successfully deleted!' });

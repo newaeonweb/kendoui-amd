@@ -4,6 +4,10 @@ define([
   'kendo'
 ], function (template) {
 
+  'use strict';
+
+  template = $.trim(template);
+
     var model = kendo.observable({
       title: 'Home'
     });

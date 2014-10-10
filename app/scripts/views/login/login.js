@@ -6,6 +6,10 @@ define([
   'kendo'
 ], function (template, $, kendo) {
 
+  'use strict';
+
+  template = $.trim(template);
+
   login.viewModel = kendo.observable({
     username: '',
     password: '',
@@ -30,9 +34,9 @@ define([
         success: function (result) {
           console.log(result.message);
         },
-        error: function (xhr, er) {
-          $('#show_combo').html('<p class="destaque">Lamento! Ocorreu um erro. Por favor tente mais tarde.')
-
+        error: function (xhr) {
+          $('#show_combo').html('<p class="destaque">Lamento! Ocorreu um erro. Por favor tente mais tarde.');
+          console.log(xhr);
         }
       });
     }

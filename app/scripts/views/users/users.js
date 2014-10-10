@@ -4,7 +4,9 @@ define([
   'kendo'
 ], function (template) {
 
-    var template = $.trim(template);
+  'use strict';
+
+    template = $.trim(template);
 
     var userModel = kendo.observable({
 

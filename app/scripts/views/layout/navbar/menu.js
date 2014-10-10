@@ -1,5 +1,3 @@
-var app = window.app || {};
-
 define([
   'text!views/layout/navbar/menu.html',
   'text!views/layout/navbar/menu.js',
@@ -7,7 +5,9 @@ define([
   'kendo'
 ], function (template) {
 
-  var template = $.trim(template);
+  'use strict';
+
+  template = $.trim(template);
 
   var menuModel = kendo.observable({
 
