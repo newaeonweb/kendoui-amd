@@ -11,16 +11,32 @@
     </div>
 
     <div class="collapse navbar-collapse pull-right" id="viewModelMenu">
-      <!--<ul class="nav navbar-nav">-->
-        <!--<li><a href="#/">Home</a></li>-->
-        <!--<li><a href="#/details">Details</a></li>-->
-        <!--<li><a href="#/users">Users</a></li>-->
-        <!--<li><a href="#/login">login</a></li>-->
-      <!--</ul>-->
       <ul id="listMenu" class="nav navbar-nav"></ul>
     </div>
+
+    <ul id="menuList" class="nav navbar-nav"></ul>
+
   </div>
 </div>
+<script id="hbsTemplate" type="text/x-handlebars-template">
+    {{#menus}}
+      <li><a href="\#/{{ link }}">{{ text }}</a></li>
+    {{/menus}}
+</script>
+<script>
+  var domTpl   = $("#hbsTemplate").html();
+  var templateHbs = Handlebars.compile(domTpl);
+
+  var listItems = { menus: [
+    {text: "Home", link: "home"},
+    {text: "Details", link: "details"},
+    {text: "Users", link: "users"},
+    {text: "Login", link: "login"}
+  ]};
+
+  $("#menuList").html(templateHbs(listItems));
+</script>
+
 <script id="javascriptTemplate" type="text/x-kendo-template">
   # for (var i = 0; i < data.length; i++) { #
   <li><a href="\#/#= data[i] #">#= data[i] #</a></li>
@@ -31,9 +47,9 @@
   //Get the external template definition using a jQuery selector
   var template = kendo.template($("#javascriptTemplate").html());
 
-  //Create some dummy data
-  var data = ["home", "details", "users", "login"];
+  //Get some data from the menu model
+  var menuItems = menu.viewModel.data;
 
-  var result = template(data); //Execute the template
-  $("#listMenu").html(result); //Append the result
+  var result = template(menuItems);
+  $("#listMenu").html(result);
 </script>

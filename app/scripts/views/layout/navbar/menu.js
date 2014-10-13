@@ -1,3 +1,5 @@
+var menu = menu || {};
+
 define([
   'text!views/layout/navbar/menu.html',
   'text!views/layout/navbar/menu.js',
@@ -9,10 +11,21 @@ define([
 
   template = $.trim(template);
 
-  var menuModel = kendo.observable({
+  menu.viewModel = kendo.observable({
+
+    title: "Teste",
+
+    data: ["home", "details", "users", "login"],
+
+    users: [
+        {text: "Home", link: "home"},
+        {text: "Details", link: "details"},
+        {text: "Users", link: "users"},
+        {text: "Login", link: "login"}
+      ],
 
     listMenu: new kendo.data.DataSource({
-      dataSource: [
+      data: [
         { text: "Home",
           cssClass: "active",
           url: "#/"
@@ -28,9 +41,9 @@ define([
   });
 
   // Bind the viewModel
-  kendo.bind($('#viewModelMenu'), menuModel);
+  kendo.bind($('#viewModelMenu'), menu.viewModel);
 
-  var menuView = new kendo.View(template, { model: menuModel });
+  var menuView = new kendo.View(template, { model: menu.viewModel });
 
   return menuView;
 

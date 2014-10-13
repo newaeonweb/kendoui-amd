@@ -32,6 +32,11 @@ app.use('/api/speakers', speakers);
 // connect to our database
 mongoose.connect('mongodb://127.0.0.1:port/node-api');
 //mongoose.connect('mongodb://feiochc:hate666!@kahana.mongohq.com:10073/node-api');
+// Check if MongoDB is running
+mongoose.connection.on('error', function() {
+  console.error('MongoDB Connection Error. Make sure MongoDB is running.');
+});
+
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

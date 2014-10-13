@@ -5,15 +5,12 @@ module.exports = function (grunt) {
   // Unified Watch Object
   var watchFiles = {
     serverViews: ['server/views/**/*.*'],
-    serverJS: ['server/**/*.js'],
+    serverJS: ['server/**/*.js','Gruntfile.js'],
     clientViews: ['app/scripts/views/**/*.html'],
     clientJS: ['app/scripts/views/**/*.js', 'app/js/**/*.js'],
     clientCSS: ['app/styles/**/*.css'],
     mochaTests: ['app/tests/**/*.js']
   };
-
-  // Load grunt tasks automatically
-  require('load-grunt-tasks')(grunt);
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -56,8 +53,6 @@ module.exports = function (grunt) {
         }
       }
     },
-
-
 
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
@@ -107,7 +102,7 @@ module.exports = function (grunt) {
       }
     },
     concurrent: {
-      default: ['nodemon', 'watch'],
+      tasks: ['nodemon', 'watch'],
       debug: ['nodemon', 'watch', 'node-inspector'],
       options: {
         logConcurrentOutput: true
@@ -116,12 +111,14 @@ module.exports = function (grunt) {
 
   });
 
+  // Load grunt tasks automatically
+  require('load-grunt-tasks')(grunt);
+
   // Making grunt default to force in order not to break the project.
   grunt.option('force', true);
 
-
   // Default task(s).
-  grunt.registerTask('default', ['lint', 'concurrent:default']);
+  grunt.registerTask('dev', ['concurrent']);
 
   // Build task(s).
   grunt.registerTask('build', ['lint']);
