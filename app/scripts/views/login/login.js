@@ -1,6 +1,7 @@
 var login = login || {};
 
 define([
+  // Require.js text plugin loads the HTML template pages​
   'text!views/login/login.html',
   'jquery',
   'kendo'

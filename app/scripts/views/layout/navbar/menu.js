@@ -1,6 +1,7 @@
 var menu = menu || {};
 
 define([
+  // Require.js text plugin loads the HTML template pages​
   'text!views/layout/navbar/menu.html',
   'text!views/layout/navbar/menu.js',
   'jquery',

@@ -1,4 +1,5 @@
 define([
+  // Require.js text plugin loads the HTML template pages​
   'text!views/details/details.html',
   'jquery',
   'kendo'
