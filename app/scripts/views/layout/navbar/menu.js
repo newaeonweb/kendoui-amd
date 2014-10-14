@@ -17,26 +17,12 @@ define([
 
     data: ["home", "details", "users", "login"],
 
-    users: [
+    menus: [
         {text: "Home", link: "home"},
         {text: "Details", link: "details"},
         {text: "Users", link: "users"},
         {text: "Login", link: "login"}
-      ],
-
-    listMenu: new kendo.data.DataSource({
-      data: [
-        { text: "Home",
-          cssClass: "active",
-          url: "#/"
-        },
-        {
-          text: "Details",
-          cssClass: "active",
-          url: "#/details"
-        }
-      ]
-    })
+    ]
 
   });
 

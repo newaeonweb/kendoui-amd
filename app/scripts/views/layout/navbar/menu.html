@@ -19,20 +19,15 @@
   </div>
 </div>
 <script id="hbsTemplate" type="text/x-handlebars-template">
-    {{#menus}}
+    {{#each this}}
       <li><a href="\#/{{ link }}">{{ text }}</a></li>
-    {{/menus}}
+    {{/each}}
 </script>
 <script>
   var domTpl   = $("#hbsTemplate").html();
   var templateHbs = Handlebars.compile(domTpl);
 
-  var listItems = { menus: [
-    {text: "Home", link: "home"},
-    {text: "Details", link: "details"},
-    {text: "Users", link: "users"},
-    {text: "Login", link: "login"}
-  ]};
+  var listItems = menu.viewModel.menus;
 
   $("#menuList").html(templateHbs(listItems));
 </script>
