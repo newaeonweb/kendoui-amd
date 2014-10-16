@@ -1,9 +1,18 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="UTF-8">
   <title>Kendoui - AMD - Single Page Application</title>
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <meta name="description" content="KendoUI Single Page Web Application with modules">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="bower_components/kendo-ui/styles/kendo.common-bootstrap.min.css">
   <link rel="stylesheet" href="bower_components/kendo-ui/styles/kendo.bootstrap.min.css">
   <link rel="stylesheet" href="styles/style.css">
@@ -11,15 +20,34 @@
   <script src="bower_components/handlebars/handlebars.min.js"></script>
   <script src="bower_components/requirejs/require.js" data-main="scripts/main.js"></script>
   <script src="bower_components/modernizr/modernizr.js"></script>
-
-
 </head>
 <body>
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
 
   <div id="root"></div>
 
 
-  <!--Livereload script, on production exclude this line-->
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+    (function (b, o, i, l, e, r) {
+        b.GoogleAnalyticsObject = l;
+        b[l] || (b[l] =
+                function () {
+                    (b[l].q = b[l].q || []).push(arguments)
+                });
+        b[l].l = +new Date;
+        e = o.createElement(i);
+        r = o.getElementsByTagName(i)[0];
+        e.src = '//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e, r)
+    }(window, document, 'script', 'ga'));
+    ga('create', 'UA-XXXXX-X');
+    ga('send', 'pageview');
+</script>
+<!--Livereload script, on production exclude this line-->
   <script src="//localhost:35729/livereload.js"></script>
 </body>
 </html>
