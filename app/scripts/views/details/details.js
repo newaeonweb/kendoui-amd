@@ -11,7 +11,7 @@ define([
 
   var model = kendo.observable({
     title: 'Details',
-	description: 'Testing kendo-ui SPA'
+    description: 'Testing kendo-ui SPA'
   });
 
   var view = new kendo.View(template, { model: model });

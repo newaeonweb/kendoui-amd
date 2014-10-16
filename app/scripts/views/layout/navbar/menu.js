@@ -16,10 +16,8 @@ define([
 
     title: "Teste",
 
-    data: ["home", "details", "users", "login"],
-
     menus: [
-        {text: "Home", link: "home"},
+      {text: "Home", link: ""},
         {text: "Details", link: "details"},
         {text: "Users", link: "users"},
         {text: "Login", link: "login"}

@@ -13,38 +13,19 @@
     <div class="collapse navbar-collapse pull-right" id="viewModelMenu">
       <ul id="listMenu" class="nav navbar-nav"></ul>
     </div>
-
-    <ul id="menuList" class="nav navbar-nav"></ul>
-
   </div>
 </div>
-<script id="hbsTemplate" type="text/x-handlebars-template">
-    {{#each this}}
-      <li><a href="\#/{{ link }}">{{ text }}</a></li>
-    {{/each}}
-</script>
-<script>
-  var domTpl   = $("#hbsTemplate").html();
-  var templateHbs = Handlebars.compile(domTpl);
-
-  var listItems = menu.viewModel.menus;
-
-  $("#menuList").html(templateHbs(listItems));
-</script>
-
-<script id="javascriptTemplate" type="text/x-kendo-template">
-  # for (var i = 0; i < data.length; i++) { #
-  <li><a href="\#/#= data[i] #">#= data[i] #</a></li>
+<script id="menuTpl" type="text/x-kendo-template">
+    # for (var i = 0; i < data.length; i++) { #
+    <li><a href="\#/#= data[i].link #">#= data[i].text #</a></li>
   # } #
 </script>
-
 <script type="text/javascript">
-  //Get the external template definition using a jQuery selector
-  var template = kendo.template($("#javascriptTemplate").html());
-
-  //Get some data from the menu model
-  var menuItems = menu.viewModel.data;
-
+    // Get the external template definition using a jQuery selector
+    var template = kendo.template($("#menuTpl").html());
+    // Get some data from the menu model
+    var menuItems = menu.viewModel.menus;
+    // Result from viewModel
   var result = template(menuItems);
   $("#listMenu").html(result);
 </script>

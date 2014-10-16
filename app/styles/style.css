@@ -8,29 +8,28 @@ a:focus,
 a:hover {
     color: #fff;
 }
-
 /* Custom default button */
 .btn-default,
 .btn-default:hover,
 .btn-default:focus {
     color: #333;
-    text-shadow: none; /* Prevent inheritence from `body` */
     background-color: #fff;
     border: 1px solid #fff;
 }
-
 /*
  * Base structure
  */
-
 html,
 body {
     height: 100%;
     background-color: #333;
 }
-
 body {
     color: #b2b2b2;
+}
+
+h1 {
+    color: #fff;
 }
 
 .cover-container {
@@ -38,23 +37,30 @@ body {
     margin-left: auto;
     text-align: center;
 }
-
-/* Padding for spacing */
-.inner {
-    padding: 30px;
-}
-
-/*
- * Cover
- */
-
 .cover {
     padding: 0 20px;
+}
+
+.cover span {
+    color: #da6b33;
 }
 
 .cover .btn-lg {
     padding: 10px 20px;
     font-weight: bold;
+}
+
+.inner {
+    padding: 30px;
+}
+
+.holder {
+    display: block;
+    padding: 10px;
+    background-color: #fff;
+    color: #000000;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px grey;
 }
 
 /*
@@ -65,11 +71,9 @@ body {
     color: #999; /* IE8 proofing */
     color: rgba(255, 255, 255, .5);
 }
-
 /*
  * Affix and center
  */
-
 @media (min-width: 768px) {
     /* Pull out the header and footer */
     .masthead {
