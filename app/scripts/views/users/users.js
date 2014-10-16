@@ -57,8 +57,11 @@ define([
         // Event
         submitForm: function (e) {
             e.preventDefault();
+            // Using kendoUI Form Validator
+            var validator = $("#addUserForm").kendoValidator().data("kendoValidator");
             //console.log('click', login.viewModel.username);
-            $.ajax({
+            if (validator.validate()) {
+                $.ajax({
                 type: 'POST',
                 url: user.viewModel.urlService,
                 timeout: 30000,
@@ -88,6 +91,7 @@ define([
                     console.log(xhr);
                 }
             });
+            }
         },
 
         editDetails: function (e) {
