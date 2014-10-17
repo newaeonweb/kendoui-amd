@@ -1,8 +1,8 @@
-var user = user || {};
+var widgets = widgets || {};
 
 define([
   // Require.js text plugin loads the HTML template pages​
-  'text!views/users/users.html',
+    'text!views/widgets/widgets.html',
   'jquery',
     'kendo',
     'toastr'
@@ -12,9 +12,12 @@ define([
 
     template = $.trim(template);
 
-    user.viewModel = kendo.observable({
-
+    widgets.viewModel = kendo.observable({
         // Set viewModel properties
+        title: 'Widgets',
+        description: 'Some useful widgets and Handlebars templates.',
+
+
         username: '',
         firstName: '',
         lastName: '',
@@ -63,14 +66,14 @@ define([
             if (validator.validate()) {
                 $.ajax({
                 type: 'POST',
-                url: user.viewModel.urlService,
+                    url: widgets.viewModel.urlService,
                 timeout: 30000,
                 dataType: "json",
                 data: {
-                    username: user.viewModel.username,
-                    firstName: user.viewModel.firstName,
-                    lastName: user.viewModel.lastName,
-                    email: user.viewModel.email
+                    username: widgets.viewModel.username,
+                    firstName: widgets.viewModel.firstName,
+                    lastName: widgets.viewModel.lastName,
+                    email: widgets.viewModel.email
                 },
                 contentType: 'application/x-www-form-urlencoded; charset=ISO 8859-1',
                 beforeSend: function () {
@@ -81,7 +84,7 @@ define([
                 },
                 success: function (result) {
                     console.log(result.message);
-                    // Update Grid after insert new user
+                    // Update Grid after insert new widgets
 
                     toastr.success(result.message);
                     $("#gridRestful").data("kendoGrid").dataSource.read();
@@ -103,9 +106,9 @@ define([
     });
 
     // Bind the viewModel
-    kendo.bind($('#addUserForm'), user.viewModel);
+    kendo.bind($('#addUserForm'), widgets.viewModel);
 
-    var view = new kendo.View(template, { model: user.viewModel });
+    var view = new kendo.View(template, { model: widgets.viewModel });
 
     return view;
 

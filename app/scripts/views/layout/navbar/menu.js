@@ -19,8 +19,9 @@ define([
     menus: [
       {text: "Home", link: ""},
         {text: "Details", link: "details"},
-        {text: "Users", link: "users"},
-        {text: "Login", link: "login"}
+        {text: "Widgets", link: "widgets"},
+        {text: "Login", link: "login"},
+        {text: "Signup", link: "signup"}
     ]
 
   });

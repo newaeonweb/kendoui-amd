@@ -1,44 +1,52 @@
 <div class="row-fluid">
-  <h3>Simple Handlebars template table</h3>
+  <h1 data-bind="html: title"></h1>
 
-  <div id="content-placeholder"></div>
+  <p data-bind="text: description"></p>
   <hr/>
+
+  <div class="holder">
+    <h3>Simple Handlebars template for table.</h3>
+
+    <div id="content-placeholder"></div>
     <!--Handlebars templates-->
-		<script id="some-template" type="text/x-handlebars-template">
-		  <table class="table table-striped">
-			<thead>
-			  <th>Username</th>
-			  <th>Real Name</th>
-			  <th>Email</th>
-			</thead>
-			<tbody>
-			  {{#users}}
-				<tr>
-				  <td>{{username}}</td>
-				  <td>{{firstName}} {{lastName}}</td>
-				  <td>{{email}}</td>
-				</tr>
-			  {{/users}}
-			</tbody>
-		  </table>
-		</script>
+    <script id="some-template" type="text/x-handlebars-template">
+      <table class="table table-striped">
+        <thead>
+        <th>Username</th>
+        <th>Real Name</th>
+        <th>Email</th>
+        </thead>
+        <tbody>
+        {{#users}}
+        <tr>
+          <td>{{username}}</td>
+          <td>{{firstName}} {{lastName}}</td>
+          <td>{{email}}</td>
+        </tr>
+        {{/users}}
+        </tbody>
+      </table>
+    </script>
+  </div>
 
-  <h3>Kendo grid with local data</h3>
 
-  <div id="gridLocal"></div>
-  <br/>
-    <br/>
+  <div class="holder">
+    <h3>Kendo grid with local data</h3>
 
-  <h3>Kendo Grid with Restful dataSource</h3>
+    <div id="gridLocal"></div>
+  </div>
 
-  <div id="gridRestful"></div>
-    <br/>
-    <br/>
-  <hr/>
-  <h3>Form</h3>
+  <div class="holder">
+    <h3>Kendo Grid with Restful dataSource</h3>
 
-  <form role="form" id="addUserForm">
-    <div class="form-group">
+    <div id="gridRestful"></div>
+  </div>
+
+  <div class="holder">
+    <h3>Bootstrap form with Kendoui validation</h3>
+
+    <form role="form" id="addUserForm">
+      <div class="form-group">
       <label for="username">Username</label>
       <input data-bind="value: username" type="text" class="form-control" id="username"
              placeholder="Complete Username" name="username" required>
@@ -59,38 +67,39 @@
                required data-required-msg="My custom email message">
     </div>
 
-    <button type="submit" class="btn btn-default" data-bind="click: submitForm">Submit</button>
-  </form>
+      <button type="submit" class="btn btn-success" data-bind="click: submitForm">Submit</button>
+    </form>
+  </div>
 
+  <div class="holder">
+    <h3>Kendo Grid viewModel</h3>
 
-  <h3>Kendo Grid viewModel</h3>
     <div id="viewModelRemote">
-
       <div id="viewModelRemoteGrid"
            data-role="grid"
            data-bind="source: listUsers"
            data-toolbar="['create', 'save']"
            data-columns="[
-              { 'field': 'username', 'title':'Nome de Usuário', 'width': 270 },
-              { 'field': 'firstName', 'title':'Primeiro Nome' },
-              { 'field': 'lastName', 'title':'Último Nome', },
-              { 'field': 'email', 'title':'Email', },
-           ]"
+                { 'field': 'username', 'title':'Nome de Usuário', 'width': 270 },
+                { 'field': 'firstName', 'title':'Primeiro Nome' },
+                { 'field': 'lastName', 'title':'Último Nome', },
+                { 'field': 'email', 'title':'Email', },
+             ]"
            data-editable="true">
       </div>
-
     </div>
+  </div>
 
 </div>
 <script>
 	var domTpl   = $("#some-template").html();
-	  var template = Handlebars.compile(domTpl);
+  var template = Handlebars.compile(domTpl);
 
-		var data = { users: [
-		  {username: "alan", firstName: "Alan", lastName: "Johnson", email: "alan@test.com" },
-		  {username: "allison", firstName: "Allison", lastName: "House", email: "allison@test.com" },
-		  {username: "ryan", firstName: "Ryan", lastName: "Carson", email: "ryan@test.com" }
-		]};
+  var data = { users: [
+    {username: "alan", firstName: "Alan", lastName: "Johnson", email: "alan@test.com" },
+    {username: "allison", firstName: "Allison", lastName: "House", email: "allison@test.com" },
+    {username: "ryan", firstName: "Ryan", lastName: "Carson", email: "ryan@test.com" }
+  ]};
 
 	$("#content-placeholder").html(template(data));
 

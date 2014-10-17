@@ -4,10 +4,11 @@ define([
   'views/layout/layout',
   'views/home/home',
   'views/details/details',
-  'views/users/users',
+    'views/widgets/widgets',
   'views/layout/navbar/menu',
-  'views/login/login'
-], function ($, kendo, layout, home, details, users, menu, login) {
+    'views/login/login',
+    'views/signup/signup'
+], function ($, kendo, layout, home, details, widgets, menu, login, signup) {
 
   var router = new kendo.Router({
     init: function () {
@@ -25,14 +26,19 @@ define([
     layout.showIn('#content', login);
   });
 
+    router.route('/signup', function () {
+        layout.showIn('#menu', menu);
+        layout.showIn('#content', signup);
+    });
+
   router.route('/details', function () {
     layout.showIn('#menu', menu);
     layout.showIn('#content', details);
   });
 
-  router.route('/users', function () {
+    router.route('/widgets', function () {
     layout.showIn('#menu', menu);
-    layout.showIn('#content', users);
+        layout.showIn('#content', widgets);
   });
 
 

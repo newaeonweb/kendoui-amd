@@ -16,16 +16,16 @@
   </div>
 </div>
 <script id="menuTpl" type="text/x-kendo-template">
-    # for (var i = 0; i < data.length; i++) { #
-    <li><a href="\#/#= data[i].link #">#= data[i].text #</a></li>
+  # for (var i = 0; i < data.length; i++) { #
+  <li><a href="\#/#= data[i].link #">#= data[i].text #</a></li>
   # } #
 </script>
 <script type="text/javascript">
-    // Get the external template definition using a jQuery selector
-    var template = kendo.template($("#menuTpl").html());
-    // Get some data from the menu model
-    var menuItems = menu.viewModel.menus;
-    // Result from viewModel
+  // Get the external template definition using a jQuery selector
+  var template = kendo.template($("#menuTpl").html());
+  // Get some data from the menu model
+  var menuItems = menu.viewModel.menus;
+  // Result from viewModel
   var result = template(menuItems);
   $("#listMenu").html(result);
 </script>
