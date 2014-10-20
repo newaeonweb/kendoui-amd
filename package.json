@@ -1,6 +1,11 @@
 {
   "name": "kendo-generator",
+  "main": "server.js",
   "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "server.js"
+  },
   "dependencies": {
     "express": "~4.2.0",
     "static-favicon": "~1.0.0",
@@ -9,8 +14,19 @@
     "body-parser": "~1.0.0",
     "debug": "~0.7.4",
     "hjs": "~0.0.6",
+    "method-override": "~1.0.0",
     "mongoose": "^3.8.12",
-    "nodemon": "^1.2.0"
+
+    "connect-flash": "~0.1.1",
+    "connect-mongo": "^0.4.1",
+    "express-session": "^1.0.4",
+    "bcrypt-nodejs": "latest",
+    "passport": "~0.1.17",
+    "passport-facebook": "~1.0.2",
+    "passport-google-oauth": "~0.1.5",
+    "passport-local": "~0.1.6",
+    "passport-twitter": "~1.0.2"
+
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -24,7 +40,8 @@
     "grunt-nodemon": "~0.2.1",
     "jshint-stylish": "~0.1.3",
     "load-grunt-tasks": "~0.2.0",
-    "time-grunt": "~0.2.0"
+    "time-grunt": "~0.2.0",
+    "nodemon": "^1.2.0"
   },
   "engines": {
     "node": ">=0.8.0"
