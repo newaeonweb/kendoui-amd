@@ -7,11 +7,34 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
+// Modules to store session
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+
+// Import Passport and Warning flash modules
+var passport = require('passport');
+var flash = require('connect-flash');
+
+// Setup Routes
 var routes = require('./server/routes/index');
 var widgets = require('./server/routes/widgets');
 var speakers = require('./server/routes/speakers');
 
+// Database configuration
+var config = require('./server/config/config.js');
+// connect to our database
+mongoose.connect(config.url);
+
+// Check if MongoDB is running
+mongoose.connection.on('error', function () {
+  console.error('MongoDB Connection Error. Make sure MongoDB is running.');
+});
+
+// Start the web express application
 var app = express();
+
+// Passport configuration
+require('./server/config/passport')(passport);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'server/views'));
@@ -25,20 +48,30 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'app')));
 
+// required for passport
+// secret for session
+app.use(session({
+  secret: 'sometextgohere',
+  saveUninitialized: true,
+  resave: true,
+  //store session on MongoDB using express-session + connect mongo
+  store: new MongoStore({
+    url: config.url,
+    collection: 'sessions'
+  })
+}));
+
+// Init passport authentication
+app.use(passport.initialize());
+// persistent login sessions
+app.use(passport.session());
+// flash messages
+app.use(flash());
+
+// load routes
 app.use('/', routes);
 app.use('/api/widgets', widgets);
 app.use('/api/speakers', speakers);
-
-// Database configuration
-var config = require('./server/config/config.js');
-// connect to our database
-mongoose.connect(config.url);
-
-// Check if MongoDB is running
-mongoose.connection.on('error', function () {
-  console.error('MongoDB Connection Error. Make sure MongoDB is running.');
-});
-
 
 /// catch 404 and forward to error handler
 app.use(function (req, res, next) {
