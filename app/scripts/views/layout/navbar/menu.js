@@ -18,10 +18,10 @@ define([
 
     menus: [
       {text: "Home", link: ""},
-        {text: "Details", link: "details"},
-        {text: "Widgets", link: "widgets"},
-        {text: "Login", link: "login"},
-        {text: "Signup", link: "signup"}
+      {text: "Details", link: "details"},
+      {text: "Widgets", link: "widgets"},
+      {text: "Login", link: "login"},
+      {text: "Signup", link: "signup"}
     ]
 
   });
