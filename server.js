@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
 
 var routes = require('./server/routes/index');
-var users = require('./server/routes/users');
+var users = require('./server/routes/widgets');
 var speakers = require('./server/routes/speakers');
 
 var app = express();
