@@ -49,7 +49,7 @@ router.post('/', function(req, res) {
     }
     console.log(widget);
     // give some success message
-    res.json({ message: 'widget successfully created!' });
+    res.json({ message: 'Widget successfully created!' });
   });
 
 });
@@ -78,7 +78,7 @@ router.put('/:widget_id', function (req, res) {
         }
       console.log(widget);
         // give some success message
-      res.json({ message: 'widget successfully updated!' });
+      res.json({ message: 'Widget successfully updated!' });
       });
 
   });
@@ -98,7 +98,7 @@ router.delete('/:widget_id', function (req, res) {
     }
 
     // give some success message
-    res.json({ message: 'widget successfully deleted!' });
+    res.json({ message: 'Widget successfully deleted!' });
   });
 
 });
