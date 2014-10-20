@@ -1,4 +1,4 @@
-// Import the Modules
+// Import the Modules / assign modules to variables
 var express = require('express');
 var path = require('path');
 var favicon = require('static-favicon');
@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
 
 var routes = require('./server/routes/index');
-var users = require('./server/routes/widgets');
+var widgets = require('./server/routes/widgets');
 var speakers = require('./server/routes/speakers');
 
 var app = express();
@@ -26,12 +26,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'app')));
 
 app.use('/', routes);
-app.use('/api/users', users);
+app.use('/api/widgets', widgets);
 app.use('/api/speakers', speakers);
 
+// Database configuration
+var config = require('./server/config/config.js');
 // connect to our database
-mongoose.connect('mongodb://127.0.0.1:port/node-api');
-//mongoose.connect('mongodb://feiochc:hate666!@kahana.mongohq.com:10073/node-api');
+mongoose.connect(config.url);
+
 // Check if MongoDB is running
 mongoose.connection.on('error', function() {
   console.error('MongoDB Connection Error. Make sure MongoDB is running.');

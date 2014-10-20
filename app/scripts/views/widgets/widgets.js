@@ -22,7 +22,7 @@ define([
         firstName: '',
         lastName: '',
         email: '',
-        urlService: 'http://localhost:3000/api/users/',
+      urlService: 'http://localhost:3000/api/widgets/',
 
       listUsers: new kendo.data.DataSource({
         schema: {
@@ -33,23 +33,23 @@ define([
         batch: true,
         transport: {
           read: {
-            url: "http://localhost:3000/api/users",
+            url: "http://localhost:3000/api/widgets",
             dataType: "json",
             type: "Get"
           },
           update: {
-            url: "http://localhost:3000/api/users/:id",
+            url: "http://localhost:3000/api/widgets/:id",
             dataType: "json",
             type: "PUT"
           },
           destroy: {
-            url: "http://localhost:3000/api/users/:id",
+            url: "http://localhost:3000/api/widgets/:id",
             dataType: "json",
             type: "DELETE",
             data: {}
           },
           create: {
-            url: "http://localhost:3000/api/users",
+            url: "http://localhost:3000/api/widgets",
             dataType: "json",
             type: "POST"
           }
