@@ -69,7 +69,7 @@ app.use(passport.session());
 app.use(flash());
 
 // load routes
-app.use('/', routes);
+app.use('/api/', routes);
 app.use('/api/widgets', widgets);
 app.use('/api/speakers', speakers);
 

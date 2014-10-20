@@ -1,31 +1,33 @@
 <div class="navbar navbar-static-top navbar-default">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">KendoUI - AMD</a>
-    </div>
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">KendoUI - AMD</a>
+        </div>
 
-    <div class="collapse navbar-collapse pull-right" id="viewModelMenu">
-      <ul id="listMenu" class="nav navbar-nav"></ul>
+        <div class="collapse navbar-collapse pull-right" id="viewModelMenu">
+            <ul id="listMenu" class="nav navbar-nav"></ul>
+            <li><a href="/api/logout">Sair</a></li>
+        </div>
     </div>
-  </div>
 </div>
 <script id="menuTpl" type="text/x-kendo-template">
-  # for (var i = 0; i < data.length; i++) { #
-  <li><a href="\#/#= data[i].link #">#= data[i].text #</a></li>
-  # } #
+    # for (var i = 0; i < data.length; i++) { #
+    <li><a href="\#/#= data[i].link #">#= data[i].text #</a></li>
+    # } #
 </script>
 <script type="text/javascript">
-  // Get the external template definition using a jQuery selector
-  var template = kendo.template($("#menuTpl").html());
-  // Get some data from the menu model
-  var menuItems = menu.viewModel.menus;
-  // Result from viewModel
-  var result = template(menuItems);
-  $("#listMenu").html(result);
+    // Get the external template definition using a jQuery selector
+    var template = kendo.template($("#menuTpl").html());
+    // Get some data from the menu model
+    var menuItems = menu.viewModel.menus;
+    // Result from viewModel
+    var result = template(menuItems);
+    $("#listMenu").html(result);
 </script>

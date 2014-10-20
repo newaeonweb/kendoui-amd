@@ -4,17 +4,18 @@ define([
   // Require.js text plugin loads the HTML template pages​
   'text!views/login/login.html',
   'jquery',
-  'kendo'
-], function (template, $, kendo) {
+  'kendo',
+  'toastr'
+], function (template, $, kendo, toastr) {
 
   'use strict';
 
   template = $.trim(template);
 
   login.viewModel = kendo.observable({
-    username: '',
+    email: '',
     password: '',
-    urlService: 'http://localhost:3000/api/users/',
+    urlService: 'http://localhost:3000/api/login/',
 
     submitLogin: function (e) {
       e.preventDefault();
@@ -23,21 +24,25 @@ define([
         type: 'POST',
         url: login.viewModel.urlService,
         timeout: 30000,
-        dataType: "json",
-        data: {username: login.viewModel.username, firstName: login.viewModel.password },
-        contentType: 'application/x-www-form-urlencoded; charset=ISO 8859-1',
+        //dataType: "json",
+        data: {email: login.viewModel.email, password: login.viewModel.password },
         beforeSend: function () {
-
+          kendo.ui.progress($("body"), true);
         },
         complete: function () {
-
+          kendo.ui.progress($("body"), false);
         },
         success: function (result) {
-          console.log(result.message);
+          // Show error message from Passport Authentication
+          //console.log(result.message.length);
+
+          window.location = "/#/widgets";
+
+          //toastr.warning(result);
         },
-        error: function (xhr) {
-          $('#show_combo').html('<p class="destaque">Lamento! Ocorreu um erro. Por favor tente mais tarde.');
+        error: function (xhr, err) {
           console.log(xhr);
+          console.log(err);
         }
       });
     }
