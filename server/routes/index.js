@@ -1,24 +1,33 @@
 var express = require('express');
 var router = express.Router();
-
 var User = require('../models/user');
-
 var passport = require('passport');
 
-// Home
-router.get('/', function(req, res) {
-  res.status(200).json({ message: 'API is working' })
+// check if user is logged in
+function isLoggedIn(req, res, next) {
+  'use strict';
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/');
+}
+
+// Routes
+// API Home
+router.get('/', function (req, res) {
+  'use strict';
+  res.status(200).json({ message: 'API is working' });
 });
 
 // Profile
 router.get('/profile', isLoggedIn, function (req, res) {
+  'use strict';
   // Find logged User
   var userId = req.user._id;
 
   User.findOne({
     _id: userId
   }, function (err, user) {
-
     if (err) {
       res.send(err);
     }
@@ -26,14 +35,9 @@ router.get('/profile', isLoggedIn, function (req, res) {
   });
 });
 
-// Logout
-router.get('/logout', function (req, res) {
-  req.logout();
-  res.redirect('/');
-});
-
 // Login
 router.get('/login', function (req, res) {
+  'use strict';
   res.json({ message: req.flash('loginMessage') });
 });
 
@@ -47,6 +51,7 @@ router.post('/login', passport.authenticate('local-login', {
 
 // Sign up
 router.get('/signup', function (req, res) {
+  'use strict';
   res.send({ message: req.flash('signupMessage') });
 });
 
@@ -58,13 +63,11 @@ router.post('/signup', passport.authenticate('local-signup', {
   failureFlash: true
 }));
 
-
-// check if user is logged in
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated())
-    return next();
-
+// Logout
+router.get('/logout', function (req, res) {
+  'use strict';
+  req.logout();
   res.redirect('/');
-}
+});
 
 module.exports = router;

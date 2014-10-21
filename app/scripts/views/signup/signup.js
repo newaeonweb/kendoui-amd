@@ -19,27 +19,30 @@ define([
 
     submitSignup: function (e) {
       e.preventDefault();
-      //console.log('click', login.viewModel.username);
-      $.ajax({
-        type: "POST",
-        url: signup.viewModel.urlService,
-        timeout: 30000,
-        dataType: "json",
-        data: {email: signup.viewModel.email, password: signup.viewModel.password },
-        beforeSend: function () {
-
-        },
-        complete: function () {
-
-        },
-        success: function (result) {
-          // Show success message
-          toastr.info(result.message);
-        },
-        error: function (xhr) {
-          console.log(xhr);
-        }
-      });
+      // Validate input;
+      var validator = $("#signupView").kendoValidator().data("kendoValidator");
+      if (validator.validate()) {
+        $.ajax({
+          type: "POST",
+          url: signup.viewModel.urlService,
+          timeout: 30000,
+          dataType: "json",
+          data: {email: signup.viewModel.email, password: signup.viewModel.password },
+          beforeSend: function () {
+            kendo.ui.progress($("body"), true);
+          },
+          complete: function () {
+            kendo.ui.progress($("body"), false);
+          },
+          success: function (result) {
+            // Show success message
+            toastr.info(result.message);
+          },
+          error: function (xhr, err) {
+            toastr.error(err);
+          }
+        });
+      }
     }
   });
 

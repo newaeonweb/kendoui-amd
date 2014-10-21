@@ -14,15 +14,28 @@ define([
 
   menu.viewModel = kendo.observable({
 
-    title: "Teste",
+    logged: false,
 
+    // local menu items
     menus: [
       {text: "Home", link: ""},
-      {text: "Details", link: "details"},
-      {text: "Widgets", link: "widgets"},
-      {text: "Login", link: "login"},
-      {text: "Signup", link: "signup"}
-    ]
+      {text: "Details", link: "/#/details"},
+      {text: "Widgets", link: "/#/widgets"},
+      {text: "Login", link: "/#/login"},
+      {text: "Signup", link: "/#/signup"}
+
+    ],
+
+    // Check login return, if success append logout link to menu
+    isLogged: function () {
+
+      if (menu.viewModel.logged === true) {
+        menu.viewModel.menus.push(
+          {text: "Logout", link: "/api/logout"}
+        );
+      }
+
+    }
 
   });
 

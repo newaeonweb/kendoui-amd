@@ -5,6 +5,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
 
 module.exports = function (passport) {
+  'use strict';
   // passport setup
 
   // serialize the user for the session
@@ -27,27 +28,33 @@ module.exports = function (passport) {
       passReqToCallback: true
     },
     function (req, email, password, done) {
-      if (email)
-      // format to lower-case
+      if (email) {
+        // format to lower-case
         email = email.toLowerCase();
+      }
 
       // asynchronous
       process.nextTick(function () {
         User.findOne({ 'local.email': email }, function (err, user) {
           // if errors
-          if (err)
+          if (err) {
             return done(err);
+          }
 
           // check errors and bring the messages
-          if (!user)
+          if (!user) {
             return done(null, false, req.flash('loginMessage', 'No user found.'));
+          }
 
-          if (!user.validPassword(password))
+          if (!user.validPassword(password)) {
             return done(null, false, req.flash('loginMessage', 'Wohh! Wrong password.'));
+          }
 
           // everything ok, get user
-          else
+          else {
             return done(null, user);
+          }
+
         });
       });
 
@@ -61,9 +68,10 @@ module.exports = function (passport) {
       passReqToCallback: true
     },
     function (req, email, password, done) {
-      if (email)
-      // format to lower-case
+      if (email) {
+        // format to lower-case
         email = email.toLowerCase();
+      }
 
       // asynchronous
       process.nextTick(function () {
@@ -71,9 +79,9 @@ module.exports = function (passport) {
         if (!req.user) {
           User.findOne({ 'local.email': email }, function (err, user) {
             // if errors
-            if (err)
+            if (err) {
               return done(err);
-
+            }
             // check email
             if (user) {
               return done(null, false, req.flash('signupMessage', 'Wohh! the email is already taken.'));
@@ -86,9 +94,9 @@ module.exports = function (passport) {
               newUser.local.password = newUser.generateHash(password);
 
               newUser.save(function (err) {
-                if (err)
+                if (err) {
                   throw err;
-
+                }
                 return done(null, newUser);
               });
             }
@@ -96,7 +104,6 @@ module.exports = function (passport) {
           });
 
         } else {
-
           return done(null, req.user);
         }
 
