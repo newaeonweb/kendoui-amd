@@ -1,3 +1,5 @@
+var detail = detail || {};
+
 define([
   // Require.js text plugin loads the HTML template pages​
   'text!views/details/details.html',
@@ -9,13 +11,13 @@ define([
 
   template = $.trim(template);
 
-  var model = kendo.observable({
+    detail.viewModel = kendo.observable({
     title: 'Details',
-    description: 'Testing kendo-ui SPA'
+        description: 'KendoUI - AMD is a simple Single Page Application facing some trivial task for aingle page application using KendoUI - Widgets.'
   });
 
-  var view = new kendo.View(template, { model: model });
+    var detailView = new kendo.View(template, { model: detail.viewModel });
 
-  return view;
+    return detailView;
 
 });
