@@ -33,16 +33,17 @@ define([
           kendo.ui.progress($("body"), false);
         },
         success: function (result) {
-          // Show error message from Passport Authentication
-          //console.log(result.message.length);
-
-          window.location = "/#/widgets";
-
-          //toastr.warning(result);
+          // Check if result have message
+          if (result.message) {
+            // Show error message from Passport Authentication
+            toastr.warning(result.message);
+          } else {
+            login.viewModel.set('email', result.email);
+            window.location = "/#/widgets";
+          }
         },
         error: function (xhr, err) {
-          console.log(xhr);
-          console.log(err);
+          toastr.error(err);
         }
       });
     }

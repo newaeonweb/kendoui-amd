@@ -13,7 +13,11 @@ router.get('/', function(req, res) {
 // Profile
 router.get('/profile', isLoggedIn, function (req, res) {
   // Find logged User
-  User.findOne({ email: res.email }, function (err, user) {
+  var userId = req.user._id;
+
+  User.findOne({
+    _id: userId
+  }, function (err, user) {
 
     if (err) {
       res.send(err);
@@ -30,7 +34,7 @@ router.get('/logout', function (req, res) {
 
 // Login
 router.get('/login', function (req, res) {
-  res.send({ message: req.flash('loginMessage') });
+  res.json({ message: req.flash('loginMessage') });
 });
 
 // Login Post
