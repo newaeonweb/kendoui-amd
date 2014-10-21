@@ -13,7 +13,7 @@ define([
 
     detail.viewModel = kendo.observable({
     title: 'Details',
-        description: 'KendoUI - AMD is a simple Single Page Application facing some trivial task for aingle page application using KendoUI - Widgets.'
+        description: 'KendoUI - AMD is a simple Single Page Application facing some trivial task for aingle page application using KendoUI - Widgets. Learn how to use KendoUI and Require together to create modular applications.'
   });
 
     var detailView = new kendo.View(template, { model: detail.viewModel });
