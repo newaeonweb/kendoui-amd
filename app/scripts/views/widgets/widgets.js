@@ -108,9 +108,9 @@ define([
   // Bind the viewModel
   kendo.bind($('#addUserForm'), widgets.viewModel);
 
-  var view = new kendo.View(template, { model: widgets.viewModel });
+  var widgetView = new kendo.View(template, { model: widgets.viewModel });
 
-  return view;
+  return widgetView;
 
 
 });

@@ -1,14 +1,15 @@
 define([
   'jquery',
   'kendo',
+  'bootstrap',
   'views/layout/layout',
   'views/home/home',
   'views/details/details',
-    'views/widgets/widgets',
+  'views/widgets/widgets',
   'views/layout/navbar/menu',
-    'views/login/login',
-    'views/signup/signup'
-], function ($, kendo, layout, home, details, widgets, menu, login, signup) {
+  'views/login/login',
+  'views/signup/signup'
+], function ($, kendo, bootstrap, layout, home, details, widgets, menu, login, signup) {
 
   var router = new kendo.Router({
     init: function () {
@@ -26,19 +27,19 @@ define([
     layout.showIn('#content', login);
   });
 
-    router.route('/signup', function () {
-        layout.showIn('#menu', menu);
-        layout.showIn('#content', signup);
-    });
+  router.route('/signup', function () {
+    layout.showIn('#menu', menu);
+    layout.showIn('#content', signup);
+  });
 
   router.route('/details', function () {
     layout.showIn('#menu', menu);
     layout.showIn('#content', details);
   });
 
-    router.route('/widgets', function () {
+  router.route('/widgets', function () {
     layout.showIn('#menu', menu);
-        layout.showIn('#content', widgets);
+    layout.showIn('#content', widgets);
   });
 
 
