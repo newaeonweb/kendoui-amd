@@ -1,21 +1,36 @@
 Kendoui-amd
 ===========
 
-Kendoui Single Page Web Application modular with AMD.
+> Kendoui Single-Page Web Application using KendoUI and Require.js.
 
-# This project include on front-end:
+### Included on front-end:
 + Kendoui
 + jQuery
 + Require.js
-+ Handlebars
++ Handlebars.js
 
 + Bower Package Manager
 + Grunt task Manager
 
-# On back-end:
+### Included on back-end:
 
-+ Express
++ Express Framework
 + Mongoose
 + Hjs (Templates)
 + Nodemon
 
+---
+
+# How to install
+
+*1.*  Clone the repository.
+
+    git clone git@github.com:newaeonweb/kendoui-amd.git
+
+*2.*  Download the [.zip](https://github.com/newaeonweb/kendoui-amd/archive/master.zip) file and unzip it into your system.
+
+*3.*  Open your Terminal window and place the following commands.
+
+- `npm install`
+- `bower install`
+- `grunt dev`

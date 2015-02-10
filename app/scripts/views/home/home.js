@@ -12,7 +12,7 @@ define([
     template = $.trim(template);
 
     home.viewModel = kendo.observable({
-        title: 'KendoUI Single Page Application.',
+        title: 'KendoUI Single-Page Web Application.',
         lead: 'A modular project build with <span>Node.js</span>, <span>MongoDB</span>, <span>Require.js</span>, <span>Handlebars.js</span> and <span>Toastr</span>. Dealing with common points to SPA.'
     });
 
